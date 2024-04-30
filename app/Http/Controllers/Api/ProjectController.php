@@ -11,7 +11,11 @@ class ProjectController extends Controller
     
     public function index(){
         
-        $projects = Project::all();
+        // visualizzazione di tutti i projects 
+        // $projects = Project::all();
+
+        // paginazione dei projects
+        $projects = Project::paginate(3);
 
         // dd($projects);
         return response()->json([
