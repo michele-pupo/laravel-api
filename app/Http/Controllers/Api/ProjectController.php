@@ -27,4 +27,18 @@ class ProjectController extends Controller
         ]);
     }
 
+    public function show($id){
+
+        // per trovare il project senza eager loading
+        // $project = Project::find($id);
+
+        $project = Project::with(['type','technologies'])->where('id', '=', $id)->first();
+
+        // dd($project);
+
+        return response()->json([
+            "success" => true,
+            "result"=> $project
+        ]);
+    }
 }
