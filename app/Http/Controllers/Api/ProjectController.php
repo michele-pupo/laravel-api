@@ -36,9 +36,17 @@ class ProjectController extends Controller
 
         // dd($project);
 
-        return response()->json([
-            "success" => true,
-            "result"=> $project
-        ]);
+        if($project){
+            return response()->json([
+                "success" => true,
+                "result"=> $project
+            ]);
+        } else {
+            return response()->json([
+                "success" => false,
+                "error" => "Project not found"
+            ]);
+        }
+        
     }
 }
