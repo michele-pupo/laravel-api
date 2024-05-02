@@ -27,12 +27,12 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function show($id){
+    public function show($slug){
 
         // per trovare il project senza eager loading
         // $project = Project::find($id);
 
-        $project = Project::with(['type','technologies'])->where('id', '=', $id)->first();
+        $project = Project::with(['type','technologies'])->where('slug', '=', $slug)->first();
 
         // dd($project);
 
