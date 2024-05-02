@@ -12,6 +12,8 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Str;
+
 class ProjectController extends Controller
 {
     /**
@@ -53,11 +55,15 @@ class ProjectController extends Controller
         }
 
         $newProject->fill($request->all());
+
+        //Slug
+        $newProject->slug = Str::slug($request->name);
+
         $newProject->save();
 
         $newProject->technologies()->attach($request->technologies);
 
-        return redirect()->route('admin.projects.show', $newProject->id);
+        return redirect()->route('admin.projects.show', $newProject);
     }
 
     /**
@@ -93,6 +99,9 @@ class ProjectController extends Controller
 
             $project->project_image = $path;
         }
+
+        //Slug
+        $project->slug = Str::slug($request->name);
 
         $project->update($request->all());
 

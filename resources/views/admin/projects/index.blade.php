@@ -30,8 +30,8 @@
                     @endforeach
                 </td>
                 <td>{{ \Carbon\Carbon::parse($project->project_date)->format('d/m/Y') }}</td>
-                <td><a href="{{route('admin.projects.show', $project->id)}}" class="btn btn-info">Mostra</a></td>
-                <td><a href="{{route('admin.projects.edit', $project->id)}}" class="btn btn-warning">Modifica</a></td>
+                <td><a href="{{route('admin.projects.show', $project)}}" class="btn btn-info">Mostra</a></td>
+                <td><a href="{{route('admin.projects.edit', $project)}}" class="btn btn-warning">Modifica</a></td>
             </tr>
             @endforeach
     
