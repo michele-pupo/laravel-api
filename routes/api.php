@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,6 @@ Route::get('/projects', [ProjectController::class, 'index']);
 
 // rotta per la show del singolo progetto
 Route::get('/projects/{slug}', [ProjectController::class,'show']);
+
+// creo la rotta che riceve i dati dal form front-end e memorizza nel db
+Route::post('/new-contact', [LeadController::class,'store']);
