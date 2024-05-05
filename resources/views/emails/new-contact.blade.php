@@ -5,14 +5,14 @@
 <p>
     <ul>
         <li>
-            Da: {{lead->name}}
+            Da: {{$lead->name}}
         </li>
         <li>
-            Email: {{lead->address}}
+            Email: {{$lead->address}}
         </li>
         <li>
             Messaggio: <br>
-            {{lead->message}}
+            {{$lead->message}}
         </li>
     </ul>
 </p>

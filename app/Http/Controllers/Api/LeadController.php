@@ -16,7 +16,7 @@ class LeadController extends Controller
 
         //validazione
         $validator = Validator::make($request->all(), [
-            'name' => 'requiered',
+            'name' => 'required',
             'address' => 'required|email',
             'message' => 'required'
         ], [
@@ -26,7 +26,7 @@ class LeadController extends Controller
             'message.required' => "Devi inserire un messaggio",
         ]);
 
-        //validazione non sia di succeso
+        //validazione non va a buon fine
         if($validator->fails()) {
             // messaggio di errore
             return response()->json([
@@ -42,7 +42,7 @@ class LeadController extends Controller
         $newLead->save();
 
         //invio mail
-        Mail::to('pool.gutierrezv@gmail.com')->send(new NewContact($newLead));
+        Mail::to('mikypupo@hotmail.it')->send(new NewContact($newLead));
 
         // Risposta al client
         return response()->json([
