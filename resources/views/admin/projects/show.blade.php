@@ -16,7 +16,7 @@
             </div>
             <h6 class="text-danger fs-3 pb-2">{{$project->type?->title}}</h6>
             <h6>{{ \Carbon\Carbon::parse($project->project_date)->format('d/m/Y') }}</h6>
-            <h6><a href="{{$project->link_github}}">link progetto github</a></h6>
+            <h6><a href="{{$project->link_github}}">link progetto</a></h6>
             
         </div>
         <div class="container justify-content-center d-flex gap-5">

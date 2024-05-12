@@ -18,7 +18,7 @@ class ProjectController extends Controller
         // $projects = Project::paginate(3);
 
         // visualizzazione di tutti i projects con le tipologie e le tecnologie collegate
-        $projects = Project::with(['type','technologies'])->paginate(3);
+        $projects = Project::with(['type','technologies'])->paginate(2);
 
         // dd($projects);
         return response()->json([

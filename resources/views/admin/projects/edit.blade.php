@@ -52,7 +52,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="link_github" class="form-label">Link Github</label>
+            <label for="link_github" class="form-label">Link progetto</label>
             <input type="text" class="form-control @error('link_github') is-invalid @enderror" name="link_github" value="{{old('link_github') ?? $project->link_github}}" required>
             @error('link_githube')
             <div class="invalid-feedback">
