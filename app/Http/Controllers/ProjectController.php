@@ -21,8 +21,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
-        // dd($projects);
+        // Ordina i progetti in base alla data, dal più recente al più vecchio
+        $projects = Project::orderBy('project_date', 'desc')->get();
 
         return view('admin.projects.index', compact('projects'));
     }
