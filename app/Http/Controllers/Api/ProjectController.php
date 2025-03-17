@@ -9,23 +9,20 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller
 {
     
-    public function index(){
-        
-        // visualizzazione di tutti i projects 
-        // $projects = Project::all();
-
-        // paginazione dei projects
-        // $projects = Project::paginate(3);
-
-        // visualizzazione di tutti i projects con le tipologie e le tecnologie collegate
-        $projects = Project::with(['type','technologies'])->paginate(2);
-
-        // dd($projects);
-        return response()->json([
-            "success" => true,
-            "result" => $projects
-        ]);
+    public function index(Request $request) {
+    if ($request->query('all')) {
+        // Restituisce tutti i progetti senza paginazione
+        $projects = Project::with(['type', 'technologies'])->get();
+    } else {
+        // Pagina 2 progetti per volta (default)
+        $projects = Project::with(['type', 'technologies'])->paginate(2);
     }
+
+    return response()->json([
+        "success" => true,
+        "result" => $projects
+    ]);
+}
 
     public function show($slug){
 
