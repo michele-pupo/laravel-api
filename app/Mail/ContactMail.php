@@ -19,10 +19,11 @@ class ContactMail extends Mailable
     }
 
     public function build()
-    {
-        return $this->from('mikypupowd@gmail.com')
-                    ->subject('Nuovo messaggio dal sito!')
-                    ->view('emails.contact')
-                    ->with('data', $this->data);
+{
+        return $this
+            ->from(config('mail.from.address'), config('mail.from.name'))
+            ->replyTo($this->data['address'])                             // L'email del visitatore
+            ->subject('Nuovo messaggio dal sito!')
+            ->view('emails.contact');
     }
 }
