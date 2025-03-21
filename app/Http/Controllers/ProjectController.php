@@ -19,11 +19,11 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // Ordina i progetti in base alla data, dal più recente al più vecchio
-        $projects = Project::orderBy('project_date', 'desc')->get();
-
+    public function index() {
+        $projects = Project::with(['types', 'technologies'])
+                        ->orderBy('project_date', 'asc')  // 'asc' per dal più vecchio al più recente
+                        ->get();
+        
         return view('admin.projects.index', compact('projects'));
     }
 

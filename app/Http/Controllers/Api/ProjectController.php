@@ -10,10 +10,14 @@ class ProjectController extends Controller
 {
     
     public function index(Request $request) {
-        if ($request->query('all')) {
-            $projects = Project::with(['types', 'technologies'])->get();
+        if($request->query('all')) {
+            $projects = Project::with(['types', 'technologies'])
+                            ->orderBy('project_date', 'asc')
+                            ->get();
         } else {
-            $projects = Project::with(['types', 'technologies'])->paginate(2);
+            $projects = Project::with(['types', 'technologies'])
+                            ->orderBy('project_date', 'asc')
+                            ->paginate(2);
         }
         
         return response()->json([
