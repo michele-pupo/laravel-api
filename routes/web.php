@@ -53,7 +53,9 @@ Route::middleware(['auth', 'verified'])
             Route::get('/users', [DashboardController::class, 'users'])->name('users');
 
             // rotta di risosrsa per i progetti
-            Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
+            Route::resource('projects', ProjectController::class)->scoped([
+                'project' => 'slug'
+            ]);
 
             // rotta di risorsa per i tipi di progetti
             Route::resource('types', TypeController::class);

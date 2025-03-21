@@ -10,29 +10,21 @@ class ProjectController extends Controller
 {
     
     public function index(Request $request) {
-    if ($request->query('all')) {
-        // Restituisce tutti i progetti senza paginazione
-        $projects = Project::with(['type', 'technologies'])->get();
-    } else {
-        // Pagina 2 progetti per volta (default)
-        $projects = Project::with(['type', 'technologies'])->paginate(2);
+        if ($request->query('all')) {
+            $projects = Project::with(['types', 'technologies'])->get();
+        } else {
+            $projects = Project::with(['types', 'technologies'])->paginate(2);
+        }
+        
+        return response()->json([
+            "success" => true,
+            "result" => $projects
+        ]);
     }
-
-    return response()->json([
-        "success" => true,
-        "result" => $projects
-    ]);
-}
-
+    
     public function show($slug){
-
-        // per trovare il project senza eager loading
-        // $project = Project::find($id);
-
-        $project = Project::with(['type','technologies'])->where('slug', '=', $slug)->first();
-
-        // dd($project);
-
+        $project = Project::with(['types','technologies'])->where('slug', '=', $slug)->first();
+        
         if($project){
             return response()->json([
                 "success" => true,
@@ -44,6 +36,5 @@ class ProjectController extends Controller
                 "error" => "Project not found"
             ]);
         }
-        
     }
 }

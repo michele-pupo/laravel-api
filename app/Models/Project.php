@@ -16,15 +16,23 @@ class Project extends Model
                            'description',
                            'project_date', 
                            'link_github',
-                           'type_id'
+                           'type_id',
+                            'project_image',
+                            'slug'
                           ];
 
     // aggiungiamo la possibilità di leggere le tabelle a lui collegate
-    public function type(){
-        return $this->belongsTo(Type::class);
+    public function types()
+    {
+        return $this->belongsToMany(Type::class);
     }
 
     public function technologies(){
         return $this->belongsToMany(Technology::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

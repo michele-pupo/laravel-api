@@ -19,18 +19,20 @@ class StoreProjectRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'description' =>'required|max:5000',
-            'project_image' => 'file|max:4096|required|mimes:jpg,bmp,png',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
             'project_date' => 'required|date',
-            'link_github' => 'required|max:255',
-            'type_id'=> 'nullable|exists:types,id',
+            'link_github' => 'required|string|url',
+            'project_image' => 'required|image|max:2048', // Assicurati che ci sia questa riga
+            'types' => 'nullable|array',
+            'types.*' => 'exists:types,id',
+            'technologies' => 'nullable|array',
+            'technologies.*' => 'exists:technologies,id',
         ];
     }
-
     public function messages(): array
     {
         return [

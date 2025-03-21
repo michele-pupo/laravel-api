@@ -62,14 +62,25 @@
         </div>
 
         <div class="mb-3">
-            <label for="type" class="form-label">Tipologia</label>
-            <select class="form-select" name="type_id" id="type_id">
-               @foreach ($types as $type)
-                    <option value="{{$type->id}}" {{$type->id == old('$type_id', $project->type ? $project->type->id : '') ? 'selected' : ''}}>
-                        {{$type->title}}
-                    </option>
-               @endforeach 
-            </select>
+            <label for="types" class="form-label">Tipologie</label>
+            <div class="d-flex gap-3">
+                @foreach ($types as $type)
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        name="types[]"
+                        value="{{$type->id}}"
+                        class="form-check-input"
+                        id="type-{{$type->id}}"
+                        {{in_array($type->id, old('types', $project->types->pluck('id')->toArray())) ? 'checked' : ''}}
+                    >
+                    <label
+                        class="form-check-label"
+                        for="type-{{$type->id}}"
+                    >{{$type->title}}</label>
+                </div>
+                @endforeach
+            </div>
         </div>
 
         <div class="mb-3">

@@ -43,28 +43,28 @@ class ProjectController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreProjectRequest $request)
-    {
-        $request->validated();
-        $newProject = new Project();
-
-        if ($request->hasFile('project_image')) {
-
-            $path = Storage::disk('public')->put('project_images', $request->project_image);
-
-            $newProject->project_image = $path;
-        }
-
-        $newProject->fill($request->all());
-
-        //Slug
-        $newProject->slug = Str::slug($request->name);
-
-        $newProject->save();
-
-        $newProject->technologies()->attach($request->technologies);
-
-        return redirect()->route('admin.projects.show', $newProject);
+{
+    $data = $request->validated();
+    
+    if (isset($data['project_image'])) {
+        $path = Storage::put('project_images', $data['project_image']);
+        $data['project_image'] = $path;
     }
+    
+    $data['slug'] = Str::slug($data['name']); // Genera lo slug dal nome
+    
+    $newProject = Project::create($data);
+    
+    if (isset($data['types'])) {
+        $newProject->types()->attach($data['types']);
+    }
+    
+    if (isset($data['technologies'])) {
+        $newProject->technologies()->attach($data['technologies']);
+    }
+    
+    return redirect()->route('admin.projects.show', ['project' => $newProject->slug]);
+}
 
     /**
      * Display the specified resource.
@@ -91,23 +91,35 @@ class ProjectController extends Controller
      */
     public function update(StoreProjectRequest $request, Project $project)
     {
-        $request->validated();
-
-        if ($request->hasFile('project_image')) {
-
-            $path = Storage::disk('public')->put('project_images', $request->project_image);
-
-            $project->project_image = $path;
-        }
-
-        //Slug
-        $project->slug = Str::slug($request->name);
-
-        $project->update($request->all());
-
-        $project->technologies()->sync($request->technologies);
+        $data = $request->validated();
         
-        return redirect()->route('admin.projects.index', $project->id);
+        // Gestione dell'immagine se necessario
+        if (isset($data['project_image'])) {
+            // Se c'è già un'immagine, la cancello
+            if ($project->project_image) {
+                Storage::delete($project->project_image);
+            }
+            $path = Storage::put('project_images', $data['project_image']);
+            $data['project_image'] = $path;
+        }
+        
+        $project->update($data);
+        
+        // Sincronizza le tipologie
+        if (isset($data['types'])) {
+            $project->types()->sync($data['types']);
+        } else {
+            $project->types()->detach();
+        }
+        
+        // Sincronizza le tecnologie
+        if (isset($data['technologies'])) {
+            $project->technologies()->sync($data['technologies']);
+        } else {
+            $project->technologies()->detach();
+        }
+        
+        return redirect()->route('admin.projects.index');
     }
 
     /**

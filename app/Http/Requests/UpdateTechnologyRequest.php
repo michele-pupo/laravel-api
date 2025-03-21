@@ -19,10 +19,18 @@ class UpdateTechnologyRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'project_image' => 'nullable|image|max:2048',
+            'project_date' => 'required|date',
+            'link_github' => 'required|url',
+            'types' => 'nullable|array',
+            'types.*' => 'exists:types,id',
+            'technologies' => 'nullable|array',
+            'technologies.*' => 'exists:technologies,id',
         ];
     }
 }
