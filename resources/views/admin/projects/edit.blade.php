@@ -52,14 +52,43 @@
         </div>
 
         <div class="mb-3">
-            <label for="link_github" class="form-label">Link progetto</label>
-            <input type="text" class="form-control @error('link_github') is-invalid @enderror" name="link_github" value="{{old('link_github') ?? $project->link_github}}" required>
-            @error('link_githube')
-            <div class="invalid-feedback">
-                {{$message}}
-            </div>
-            @enderror
-        </div>
+    <label for="link_github" class="form-label">
+        Link Demo
+    </label>
+
+    <input
+        type="url"
+        class="form-control @error('link_github') is-invalid @enderror"
+        name="link_github"
+        value="{{ old('link_github') ?? $project->link_github }}"
+        required
+    >
+
+    @error('link_github')
+    <div class="invalid-feedback">
+        {{$message}}
+    </div>
+    @enderror
+</div>
+
+<div class="mb-3">
+    <label for="github_url" class="form-label">
+        Repository GitHub
+    </label>
+
+    <input
+        type="url"
+        class="form-control @error('github_url') is-invalid @enderror"
+        name="github_url"
+        value="{{ old('github_url') ?? $project->github_url }}"
+    >
+
+    @error('github_url')
+    <div class="invalid-feedback">
+        {{$message}}
+    </div>
+    @enderror
+</div>
 
         <div class="mb-3">
             <label for="types" class="form-label">Tipologie</label>
