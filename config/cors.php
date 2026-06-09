@@ -20,11 +20,12 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-    'http://localhost:5173',
-    'http://localhost:5174',
-    'https://www.mikypupo.it',
-    'https://mikypupo.it',
-     ],
+        'http://localhost:5173',
+        'http://localhost:5174',
+        'https://www.mikypupo.it',
+        'https://mikypupo.it',
+        'https://portfoliomiky.netlify.app',
+    ],
 
     'allowed_origins_patterns' => [],
 
