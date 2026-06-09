@@ -35,7 +35,7 @@ class ContactController extends Controller
 
         try {
             // Invia l'email
-            Mail::to('fabiomichelepupo@gmail.com')->send(new ContactMail($data));
+            Mail::to('mikypupowd@gmail.com')->send(new ContactMail($data));
 
             return response()->json([
                 'success' => true,
