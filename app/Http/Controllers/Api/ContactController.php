@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
@@ -42,9 +43,15 @@ class ContactController extends Controller
                 'message' => 'Messaggio inviato con successo'
             ]);
         } catch (\Exception $e) {
+
+            Log::error('Errore invio email', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Errore nell\'invio dell\'email: ' . $e->getMessage()
+                'message' => 'Errore durante l\'invio del messaggio.'
             ], 500);
         }
     }
